@@ -6,4 +6,16 @@
     <string name="nav_header_subtitle">Weave Your Life Your Way!</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="category">Category</string>
+    <string name="style">Style</string>
+    <string name="fabric">Fabric</string>
+    <string name="occasion">Occasion</string>
+    <string name="my_orders">My Orders</string>
+    <string name="my_account">My Account</string>
+    <string name="communicate">Communicate</string>
+    <string name="share">Share</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="rate_and_review">Rate and Review</string>
+    <string name="logout">Logout</string>
+    <string name="shop_by">Shop By</string>
 </resources>
