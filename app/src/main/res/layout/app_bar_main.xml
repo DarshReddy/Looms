@@ -28,6 +28,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:src="@drawable/ic_cart"
+        app:backgroundTint="#00838f"
+        app:elevation="4dp"
+        app:rippleColor="#26c6da"
+        android:scaleType="fitXY"/>
 
 </android.support.design.widget.CoordinatorLayout>
