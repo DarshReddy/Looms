@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources >
+
+    <string-array name="ld_activityScreenTitles">
+        <item>Shop By</item>
+        <item>Style</item>
+        <item>Fabric</item>
+        <item>Occasion</item>
+        <item></item>
+        <item>My Orders</item>
+        <item>My Account</item>
+        <item></item>
+        <item>Communicate</item>
+        <item>Share</item>
+        <item>Contact Us</item>
+        <item>Rate and Review</item>
+        <item>Logout</item>
+
+    </string-array>
+
+    <array name="ld_activityScreenIcons">
+        <item>@drawable/ic_cart</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>@drawable/ic_menu_share</item>
+        <item>@drawable/ic_contact</item>
+        <item>@drawable/ic_menu_send</item>
+        <item>@drawable/ic_account</item>
+    </array>
+
+</resources>
