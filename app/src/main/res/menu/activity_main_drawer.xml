@@ -1,60 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:tools="http://schemas.android.com/tools"
+
     tools:showIn="navigation_view">
 
+
+
     <item
+
+        android:id="@+id/nav_dashboard"
+
+        android:title="@string/home" />
+
+    <item
+
         android:title="@string/shop_by">
+
         <menu>
+
             <group android:checkableBehavior="single">
+
+
                 <item
-                    android:id="@+id/nav_camera"
-                    android:title="@string/category" />
-                <item
-                    android:id="@+id/nav_gallery"
+
+                    android:id="@+id/nav_style"
+
                     android:title="@string/style" />
+
                 <item
-                    android:id="@+id/nav_slideshow"
+
+                    android:id="@+id/nav_fabric"
+
                     android:title="@string/fabric" />
+
                 <item
-                    android:id="@+id/nav_manage"
+
+                    android:id="@+id/nav_occasion"
+
                     android:title="@string/occasion" />
+
             </group>
 
+
+
         </menu>
+
     </item>
+
+
 
     <group android:checkableBehavior="single">
+
         <item
+
             android:id="@+id/nav_orders"
+
             android:title="@string/my_orders"/>
+
         <item
+
             android:id="@+id/nav_account"
+
             android:title="@string/my_account"/>
+
     </group>
 
+
+
     <item android:title="@string/communicate">
+
         <menu>
+
             <item
+
                 android:id="@+id/nav_share"
+
                 android:icon="@drawable/ic_menu_share"
+
                 android:title="@string/share" />
 
+
+
             <item
+
                 android:id="@+id/nav_contact"
+
                 android:icon="@drawable/ic_contact"
+
                 android:title="@string/contact_us"/>
 
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="@string/rate_and_review" />
+
 
             <item
+
+                android:id="@+id/nav_send"
+
+                android:icon="@drawable/ic_menu_send"
+
+                android:title="@string/rate_and_review" />
+
+
+
+            <item
+
                 android:icon="@drawable/ic_account"
+
                 android:id="@+id/nav_logout"
+
                 android:title="@string/logout"/>
+
         </menu>
+
     </item>
+
+
 
 </menu>

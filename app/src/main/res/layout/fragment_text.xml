@@ -11,6 +11,7 @@
         android:fontFamily="@font/journal"
         android:clickable="true"
         android:textColor="?android:textColorSecondary"
-        android:textSize="36sp" />
+        android:textSize="36sp"
+        android:focusable="true" />
 
 </FrameLayout>

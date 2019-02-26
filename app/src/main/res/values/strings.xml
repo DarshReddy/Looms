@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name"><html><font color="#616161">Looms</font></html></string>
+    <string name="app_name"><html><font color="#e1e1e1" size="20">Looms</font></html></string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Looms</string>
@@ -19,4 +19,15 @@
     <string name="shop_by">Shop By</string>
     <string name="my_wishlist">My Wishlist</string>
     <string name="search">Search</string>
+    <string name="hot_right_now">____Hot Right Now____</string>
+    <string name="new_arrivals">New Arrivals</string>
+    <string name="best_sellers">Best Sellers</string>
+    <string name="my_cart">My Cart</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="home">Home</string>
+    <string name="item_name">Item Name</string>
+    <string name="item_price">Item Price</string>
+    <string name="add_to_bag">Add to Bag</string>
+    <string name="categories">Categories</string>
 </resources>

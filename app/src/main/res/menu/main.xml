@@ -3,15 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:icon="@drawable/magnify"
-        android:title="@string/search"
         android:id="@+id/action_search"
-        app:showAsAction="always"/>
-
-    <item
-        android:id="@+id/action_wishlist"
+        android:icon="@drawable/ic_action_action_search"
         android:orderInCategory="100"
-        android:icon="@drawable/ic_heart"
-        android:title="@string/my_wishlist"
+        android:title="@string/abc_search_hint"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_cart"
+        android:orderInCategory="100"
+        android:icon="@drawable/ic_bag"
+        android:title="@string/my_cart"
         app:showAsAction="always" />
 </menu>

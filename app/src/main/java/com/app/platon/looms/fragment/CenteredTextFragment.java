@@ -13,6 +13,7 @@ import com.app.platon.looms.R;
 
 public class CenteredTextFragment extends Fragment {
 
+
     private static final String EXTRA_TEXT = "text";
 
     public static CenteredTextFragment createFor(String text) {
@@ -26,6 +27,8 @@ public class CenteredTextFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if(getArguments().getString(EXTRA_TEXT).equals("Style"))
+            return inflater.inflate(R.layout.fragment_dashboard, container, false);
         return inflater.inflate(R.layout.fragment_text, container, false);
     }
 

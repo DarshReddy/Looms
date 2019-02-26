@@ -1,102 +1,218 @@
 package com.app.platon.looms;
 
 import android.app.Fragment;
-import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.ImageView;
 
+import com.app.platon.looms.Model.Item;
+import com.app.platon.looms.Model.ItemLab;
 import com.app.platon.looms.fragment.CenteredTextFragment;
-import com.app.platon.looms.menu.DrawerAdapter;
-import com.app.platon.looms.menu.DrawerItem;
-import com.app.platon.looms.menu.SimpleItem;
-import com.app.platon.looms.menu.SpaceItem;
-import com.yarolegovich.slidingrootnav.SlidingRootNav;
-import com.yarolegovich.slidingrootnav.SlidingRootNavBuilder;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
+import com.synnapps.carouselview.CarouselView;
+import com.synnapps.carouselview.ImageListener;
+import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView;
+import com.takusemba.multisnaprecyclerview.OnSnapListener;
 
+import java.util.List;
 
-import java.util.Arrays;
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
-public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnItemSelectedListener {
+    private List<Item> data;
 
-    private static final int POS_SHOP_BY = 0;
-    private static final int POS_STYLE = 1;
-    private static final int POS_FABRIC = 2;
-    private static final int POS_OCCASION = 3;
-    private static final int POS_MY_ORDERS = 5;
-    private static final int POS_MY_ACCOUNT = 6;
-    private static final int POS_COMMUNICATE = 8;
-    private static final int POS_SHARE = 9;
-    private static final int POS_CONTACT_US = 10;
-    private static final int POS_RATE_AND_REVIEW = 11;
-    private static final int POS_LOGOUT = 12;
+    CarouselView carouselView;
+    MaterialSearchView searchView;
+    NavigationView navigationView;
+    ImageView mImage1;
+    ImageView mImage2;
 
-    private String[] screenTitles;
-    private Drawable[] screenIcons;
-
-    private SlidingRootNav slidingRootNav;
+    int[] sampleImages = {R.drawable.saree, R.drawable.saree, R.drawable.saree, R.drawable.saree, R.drawable.saree};
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        slidingRootNav = new SlidingRootNavBuilder(this)
-                .withToolbarMenuToggle(toolbar)
-                .withMenuOpened(false)
-                .withContentClickableWhenMenuOpened(false)
-                .withSavedState(savedInstanceState)
-                .withMenuLayout(R.layout.menu_left_drawer)
-                .inject();
+        carouselView = findViewById(R.id.carouselView);
+        carouselView.setPageCount(sampleImages.length);
 
-        screenIcons = loadScreenIcons();
-        screenTitles = loadScreenTitles();
+        carouselView.setImageListener(imageListener);
 
-        DrawerAdapter adapter = new DrawerAdapter(Arrays.asList(
-                createItemFor(POS_SHOP_BY).setChecked(true),
-                createItemFor(POS_STYLE),
-                createItemFor(POS_FABRIC),
-                createItemFor(POS_OCCASION),
-                new SpaceItem(10),
-                createItemFor(POS_MY_ORDERS),
-                createItemFor(POS_MY_ACCOUNT),
-                new SpaceItem(10),
-                createItemFor(POS_COMMUNICATE),
-                createItemFor(POS_SHARE),
-                createItemFor(POS_CONTACT_US),
-                createItemFor(POS_RATE_AND_REVIEW),
-                createItemFor(POS_LOGOUT)));
-        adapter.setListener(this);
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
-        RecyclerView list = findViewById(R.id.list);
-        list.setNestedScrollingEnabled(false);
-        list.setLayoutManager(new LinearLayoutManager(this));
-        list.setAdapter(adapter);
+        Toolbar mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
 
-        adapter.setSelected(POS_SHOP_BY);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        searchView = findViewById(R.id.search_view);
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //Do some magic
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Do some magic
+                return false;
+            }
+        });
+
+        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
+            @Override
+            public void onSearchViewShown() {
+                //Do some magic
+            }
+
+            @Override
+            public void onSearchViewClosed() {
+                //Do some magic
+            }
+        });
+
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_navi);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
+        data = ItemLab.getData();
+
+        MultiSnapRecyclerView multiSnapRecyclerView = findViewById(R.id.multi_snap);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        multiSnapRecyclerView.setLayoutManager(layoutManager);
+        multiSnapRecyclerView.setAdapter(new CardAdapter(data));
+        multiSnapRecyclerView.setOnSnapListener(new OnSnapListener() {
+                                                    @Override
+                                                    public void snapped(int position) {
+                                                        // do something with the position of the snapped view
+                                                    }
+        });
+
+        mImage1 = findViewById(R.id.img1);
+        mImage2 = findViewById(R.id.img2);
+        mImage1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ItemGrid.class);
+                startActivity(intent);
+            }
+        });
+        mImage2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ItemGrid.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    ImageListener imageListener = new ImageListener() {
+        @Override
+        public void setImageForPosition(int position, ImageView imageView) {
+            imageView.setImageResource(sampleImages[position]);
+        }
+    };
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+
+        MenuItem item = menu.findItem(R.id.action_search);
+        searchView.setMenuItem(item);
+
+        return true;
     }
 
     @Override
-    public void onItemSelected(int position) {
-        if (position == POS_LOGOUT) {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.openDrawer(GravityCompat.START);
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id==R.id.nav_dashboard) {
+            Fragment selectedScreen = CenteredTextFragment.createFor("Dash Board");
+            showFragment(selectedScreen);
+        }
+        else if (id==R.id.nav_style) {
+
+        }
+        else if (id==R.id.nav_fabric) {
+
+        }
+        else if (id==R.id.nav_occasion) {
+
+        }
+        else if(id==R.id.nav_account) {
+
+        }
+        else if (id == R.id.nav_share) {
+
+        }
+        else if (id == R.id.nav_send) {
+
+        }
+        else if(id==R.id.nav_logout) {
             finish();
         }
-        if (position == POS_SHOP_BY || position == POS_COMMUNICATE) {
-            return;
-        }
-        slidingRootNav.closeMenu();
-        Fragment selectedScreen = CenteredTextFragment.createFor(screenTitles[position]);
-        showFragment(selectedScreen);
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     private void showFragment(Fragment fragment) {
@@ -105,33 +221,4 @@ public class MainActivity extends AppCompatActivity implements DrawerAdapter.OnI
                 .commit();
     }
 
-    private DrawerItem createItemFor(int position) {
-        return new SimpleItem(screenIcons[position], screenTitles[position])
-                .withIconTint(color(R.color.colorAccent))
-                .withTextTint(color(R.color.colorPrimary))
-                .withSelectedIconTint(color(R.color.colorPrimary))
-                .withSelectedTextTint(color(R.color.colorAccent));
-    }
-
-    private String[] loadScreenTitles() {
-        return getResources().getStringArray(R.array.ld_activityScreenTitles);
-    }
-
-    private Drawable[] loadScreenIcons() {
-        TypedArray ta = getResources().obtainTypedArray(R.array.ld_activityScreenIcons);
-        Drawable[] icons = new Drawable[ta.length()];
-        for (int i = 0; i < ta.length(); i++) {
-            int id = ta.getResourceId(i, 0);
-            if (id != 0) {
-                icons[i] = ContextCompat.getDrawable(this, id);
-            }
-        }
-        ta.recycle();
-        return icons;
-    }
-
-    @ColorInt
-    private int color(@ColorRes int res) {
-        return ContextCompat.getColor(this, res);
-    }
 }
