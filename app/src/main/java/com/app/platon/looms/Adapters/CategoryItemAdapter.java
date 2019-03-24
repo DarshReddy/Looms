@@ -1,5 +1,6 @@
-package com.app.platon.looms;
+package com.app.platon.looms.Adapters;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,16 +10,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.platon.looms.Model.Item;
+import com.app.platon.looms.R;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
-public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
+public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapter.ViewHolder> {
 
     private List<Item> data;
+    private Context mContext;
 
-
-
-    public CardAdapter(List<Item> data) {
+    public CategoryItemAdapter(Context context, List<Item> data) {
+        this.mContext = context;
         this.data = data;
     }
 
@@ -31,11 +34,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CardAdapter.ViewHolder viewHolder, int i) {
-//        Glide.with(viewHolder.itemView.getContext())
-//                .load(data.get(i).getImage())
-//                .into(viewHolder.image);
+    public void onBindViewHolder(@NonNull CategoryItemAdapter.ViewHolder viewHolder, int i) {
         viewHolder.text.setText(data.get(i).getName());
+        Glide.with(mContext).load(data.get(i).getImage()).into(viewHolder.image);
     }
 
     @Override

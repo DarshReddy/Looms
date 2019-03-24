@@ -12,7 +12,6 @@
     <string name="my_orders">My Orders</string>
     <string name="my_account">My Account</string>
     <string name="communicate">Communicate</string>
-    <string name="share">Share</string>
     <string name="contact_us">Contact Us</string>
     <string name="rate_and_review">Rate and Review</string>
     <string name="logout">Logout</string>
@@ -30,4 +29,22 @@
     <string name="item_price">Item Price</string>
     <string name="add_to_bag">Add to Bag</string>
     <string name="categories">Categories</string>
+    <string name="share">Share</string>
+    <string name="add_to_wishlist">Add to Wishlist</string>
+    <string name="filter">Filter</string>
+    <string name="sort">Sort</string>
+    <string name="checkout">Checkout</string>
+    <string name="order_summery">Order Summery</string>
+    <string name="total_mrp_incl_of_all_taxes">Total MRP(incl of all taxes)</string>
+    <string name="shipping_charges">Shipping Charges</string>
+    <string name="free">FREE</string>
+    <string name="discount">Discount</string>
+    <string name="payable_amount">Payable Amount</string>
+    <string name="color">Color :</string>
+    <string name="qty">QTY :</string>
+    <string name="remove">Remove</string>
+    <string name="save_to_wishlist">Move to wishList</string>
+    <string name="proceed_to_checkout">Proceed To Checkout</string>
+    <string name="move_to_bag">Move TO Bag</string>
+    <string name="continue_shopping">Continue Shopping</string>
 </resources>

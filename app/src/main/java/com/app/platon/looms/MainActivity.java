@@ -1,14 +1,12 @@
 package com.app.platon.looms;
 
-import android.app.Fragment;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,51 +14,29 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
+import android.widget.Button;
+import android.widget.ScrollView;
+import android.widget.Toast;
 
-import com.app.platon.looms.Model.Item;
-import com.app.platon.looms.Model.ItemLab;
-import com.app.platon.looms.fragment.CenteredTextFragment;
+import com.app.platon.looms.fragment.DashBoardFragment;
+import com.app.platon.looms.fragment.ItemGridFragment;
 import com.miguelcatalan.materialsearchview.MaterialSearchView;
-import com.synnapps.carouselview.CarouselView;
-import com.synnapps.carouselview.ImageListener;
-import com.takusemba.multisnaprecyclerview.MultiSnapRecyclerView;
-import com.takusemba.multisnaprecyclerview.OnSnapListener;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private List<Item> data;
-
-    CarouselView carouselView;
+    Button sort;
+    Button filter;
     MaterialSearchView searchView;
     NavigationView navigationView;
-    ImageView mImage1;
-    ImageView mImage2;
+    ScrollView mScrollView;
 
-    int[] sampleImages = {R.drawable.saree, R.drawable.saree, R.drawable.saree, R.drawable.saree, R.drawable.saree};
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-        carouselView = findViewById(R.id.carouselView);
-        carouselView.setPageCount(sampleImages.length);
-
-        carouselView.setImageListener(imageListener);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         Toolbar mToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -101,59 +77,42 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        mScrollView = findViewById(R.id.activity_scroll);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.ic_navi);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        data = ItemLab.getData();
-
-        MultiSnapRecyclerView multiSnapRecyclerView = findViewById(R.id.multi_snap);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        multiSnapRecyclerView.setLayoutManager(layoutManager);
-        multiSnapRecyclerView.setAdapter(new CardAdapter(data));
-        multiSnapRecyclerView.setOnSnapListener(new OnSnapListener() {
-                                                    @Override
-                                                    public void snapped(int position) {
-                                                        // do something with the position of the snapped view
-                                                    }
-        });
-
-        mImage1 = findViewById(R.id.img1);
-        mImage2 = findViewById(R.id.img2);
-        mImage1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ItemGrid.class);
-                startActivity(intent);
-            }
-        });
-        mImage2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ItemGrid.class);
-                startActivity(intent);
-            }
-        });
+        Fragment fragment = DashBoardFragment.createFor();
+        showFragment(fragment);
     }
-
-    ImageListener imageListener = new ImageListener() {
-        @Override
-        public void setImageForPosition(int position, ImageView imageView) {
-            imageView.setImageResource(sampleImages[position]);
-        }
-    };
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            android.support.v4.app.Fragment fragment = DashBoardFragment.createFor();
+            showFragment(fragment);
         }
-    }
 
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
+    }
 
 
     @Override
@@ -171,8 +130,12 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == android.R.id.home) {
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            DrawerLayout drawer = findViewById(R.id.drawer_layout);
             drawer.openDrawer(GravityCompat.START);
+        }
+        else if(id == R.id.action_cart) {
+            Intent intent = new Intent(MainActivity.this, CartActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
@@ -184,29 +147,41 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id==R.id.nav_dashboard) {
-            Fragment selectedScreen = CenteredTextFragment.createFor("Dash Board");
-            showFragment(selectedScreen);
-        }
-        else if (id==R.id.nav_style) {
+        if (id == R.id.nav_dashboard) {
+            android.support.v4.app.Fragment fragment = DashBoardFragment.createFor();
+            showFragment(fragment);
 
-        }
-        else if (id==R.id.nav_fabric) {
+        } else if (id == R.id.nav_style) {
+            android.support.v4.app.Fragment fragment =new ItemGridFragment();
+            showFragment(fragment);
 
-        }
-        else if (id==R.id.nav_occasion) {
+        } else if (id == R.id.nav_fabric) {
+            android.support.v4.app.Fragment fragment =new ItemGridFragment();
+            showFragment(fragment);
 
-        }
-        else if(id==R.id.nav_account) {
+        } else if (id == R.id.nav_occasion) {
+            android.support.v4.app.Fragment fragment =new ItemGridFragment();
+            showFragment(fragment);
 
-        }
-        else if (id == R.id.nav_share) {
+        } else if (id == R.id.wish_list) {
+            Intent intent = new Intent(MainActivity.this, WishListActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.nav_account) {
 
-        }
-        else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_share) {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
 
-        }
-        else if(id==R.id.nav_logout) {
+            intent.putExtra(Intent.EXTRA_SUBJECT, "Link");
+            intent.putExtra(Intent.EXTRA_TEXT, "http://www.platonprime.com");
+
+            startActivity(intent);
+        } else if (id == R.id.nav_contact) {
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:7204996022"));
+            startActivity(intent);
+
+        } else if (id == R.id.nav_logout) {
             finish();
         }
 
@@ -215,10 +190,18 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    private void showFragment(Fragment fragment) {
-        getFragmentManager().beginTransaction()
+    private void showFragment(android.support.v4.app.Fragment fragment) {
+        getSupportFragmentManager().beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit();
+        mScrollView.smoothScrollTo(0,0);
     }
 
+    public void fullscreen(String name, String price, int position) {
+        Intent intent = new Intent(this, ItemFullScreen.class);
+        intent.putExtra("name", name);
+        intent.putExtra("price", price);
+        intent.putExtra("position", position);
+        startActivity(intent);
+    }
 }

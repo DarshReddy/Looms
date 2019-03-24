@@ -7,50 +7,52 @@
 
 
 
-    <item
+    <group android:checkableBehavior="single">
 
-        android:id="@+id/nav_dashboard"
+        <item
 
-        android:title="@string/home" />
+            android:id="@+id/nav_dashboard"
 
-    <item
+            android:title="@string/home" />
 
-        android:title="@string/shop_by">
+        <item
 
-        <menu>
+            android:title="@string/shop_by">
 
-            <group android:checkableBehavior="single">
+            <menu>
+                <group android:checkableBehavior="single">
 
+                    <item
 
-                <item
+                        android:id="@+id/nav_style"
 
-                    android:id="@+id/nav_style"
+                        android:title="@string/style" />
 
-                    android:title="@string/style" />
+                    <item
 
-                <item
+                        android:id="@+id/nav_fabric"
 
-                    android:id="@+id/nav_fabric"
+                        android:title="@string/fabric" />
 
-                    android:title="@string/fabric" />
+                    <item
 
-                <item
+                        android:id="@+id/nav_occasion"
 
-                    android:id="@+id/nav_occasion"
+                        android:title="@string/occasion" />
+                </group>
+            </menu>
 
-                    android:title="@string/occasion" />
-
-            </group>
-
-
-
-        </menu>
-
-    </item>
+        </item>
+    </group>
 
 
 
     <group android:checkableBehavior="single">
+
+        <item
+            android:title="WishList"
+
+            android:id="@+id/wish_list"/>
 
         <item
 

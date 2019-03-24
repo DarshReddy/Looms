@@ -1,100 +1,77 @@
 package com.app.platon.looms;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.Button;
+import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
+import com.app.platon.looms.Adapters.CartAdapter;
+import com.app.platon.looms.Adapters.WishListAdapter;
+import com.app.platon.looms.fragment.ItemFullScreenFragment;
 
 public class ItemFullScreen extends AppCompatActivity {
-
-    ArrayList<String> mImageArrayList = new ArrayList<>();
-    TabLayout mTabLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.item_fullscreen);
+        setContentView(R.layout.item_fullscreen_activity);
+        final android.support.v4.app.Fragment fragment = ItemFullScreenFragment.CreateFor(getIntent().getStringExtra("name"), getIntent().getStringExtra("price"), getIntent().getIntExtra("position", 0));
+        showFragment(fragment);
 
+        final Button addtobag = findViewById(R.id.add_to_bag);
+        final Button wishlist = findViewById(R.id.wish_item);
+        addtobag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CartAdapter.setPosition(getIntent().getIntExtra("position", 0));
+                Toast.makeText(ItemFullScreen.this, "Added to bag", Toast.LENGTH_SHORT).show();
+                addtobag.setVisibility(View.INVISIBLE);
+            }
+        });
+        wishlist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WishListAdapter.setPosition(getIntent().getIntExtra("position", 0));
+                Toast.makeText(ItemFullScreen.this, "Added to WishList", Toast.LENGTH_SHORT).show();
+                wishlist.setVisibility(View.INVISIBLE);
+            }
+        });
 
-
-        // Add Image to the array List
-
-        // I've used url for the images. You can also use local drawable images for this
-
-        mImageArrayList.clear();
-
-        mImageArrayList.add("http://st.hzcdn.com/simgs/b08108a5022b9acd_3-9392/modern-paintings.jpg");
-
-        mImageArrayList.add("http://st.hzcdn.com/simgs/07c1035905baa695_3-9470/contemporary-paintings.jpg");
-
-        mImageArrayList.add("http://st.hzcdn.com/simgs/a421547904c017b3_3-5125/paintings.jpg");
-
-        mImageArrayList.add("http://st.hzcdn.com/simgs/6d51a18a033973c7_3-4524/contemporary-paintings.jpg");
-
-        mImageArrayList.add("http://st.hzcdn.com/simgs/f6216ebf053eb36c_3-0546/contemporary-paintings.jpg");
-
-        mImageArrayList.add("http://st.hzcdn.com/simgs/7e9141f50616bf9d_3-6050/contemporary-paintings.jpg");
-
-
-
-
-
-        // Add View Pager
-
-        ViewPager mViewPager = (ViewPager) findViewById(R.id.activity_main_carousel_view_pager);
-
-        CarouselAdapter mPagerAdapter = new CarouselAdapter(this, mImageArrayList);
-
-        mViewPager.setAdapter(mPagerAdapter);
-
-
-
-        // Add Tablayout
-
-        mTabLayout = (TabLayout) findViewById(R.id.activity_main_tab_layout);
-
-        mTabLayout.setupWithViewPager(mViewPager);
-
-        setupCustomTabs();
-
+        Toolbar mToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
 
+    private void showFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.item_grid_container, fragment)
+                .commit();
+    }
 
-    // For all the items in the image array list, we add a custom tab view
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
-    private void setupCustomTabs() {
-
-        for (int i = 0; i < mImageArrayList.size(); i++) {
-
-            setUpTab(i);
-
+        if(id == R.id.action_cart) {
+            Intent intent = new Intent(ItemFullScreen.this, CartActivity.class);
+            startActivity(intent);
         }
 
-    }
-
-
-
-    // Here, we add custom tab view for each list item
-
-    private void setUpTab(int i) {
-
-        View v = LayoutInflater.from(this).inflate(R.layout.carousal_tab, null);
-
-        ImageView tabImage = (ImageView) v.findViewById(R.id.carousel_tab_image_view);
-
-        Picasso.with(ItemFullScreen.this).load(mImageArrayList.get(i)).resize(200, 200).centerCrop().into(tabImage);
-
-        mTabLayout.getTabAt(i).setCustomView(v);
-
+        return super.onOptionsItemSelected(item);
     }
 }

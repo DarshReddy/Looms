@@ -1,58 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="180dp"
-    android:layout_height="250dp"
-    android:elevation="3dp">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="2dp"
+    android:background="@android:color/transparent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/list_item_image"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="5dp"
-            android:background="@android:color/transparent"
-            android:fitsSystemWindows="true" />
-
-        <TextView
-            android:id="@+id/list_item_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/item_name" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/item_price" />
+    <android.support.v7.widget.CardView
+        android:layout_width="180dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:elevation="3dp"
+        android:outlineSpotShadowColor="@android:color/black"
+        android:background="@drawable/round_corner_bg">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="5dp">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <Button
+            <ImageView
+                android:id="@+id/list_item_image"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:background="@android:color/transparent"
+                android:fitsSystemWindows="true" />
+
+            <TextView
+                android:id="@+id/list_item_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/card_item_bg"
-                android:text="@string/add_to_bag"
-                android:textSize="15sp"
-                android:fontFamily="@font/journal"/>
+                android:layout_gravity="center"
+                android:hint="@string/item_name" />
 
-            <ImageButton
-                android:layout_width="47dp"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                android:src="@drawable/ic_heart" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/itemPrice"
+                android:hint="@string/item_price"/>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp">
+
+                <Button
+                    android:id="@+id/add_to_bag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/add_to_bag"
+                    android:textSize="15sp"
+                    android:fontFamily="@font/journal"/>
+
+                <ImageButton
+                    android:id="@+id/wish_item"
+                    android:layout_width="47dp"
+                    android:layout_height="match_parent"
+                    android:background="#80eceff1"
+                    android:src="@drawable/ic_heart"/>
+
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
 
-</android.support.v7.widget.CardView>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

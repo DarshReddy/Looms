@@ -7,13 +7,16 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/list_items"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:scrollbarStyle="outsideOverlay"
+        android:scrollbars="vertical|horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:scrollbars="vertical|horizontal"
-        android:scrollbarStyle="outsideOverlay"/>
+        android:fitsSystemWindows="true"/>
 
 </android.support.constraint.ConstraintLayout>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:background="@drawable/round_corner_bg"
+    android:orientation="horizontal">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/wish_image"
+            android:layout_width="120dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:padding="10dp"
+            android:src="@drawable/saree2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/wish_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="16dp"
+            android:hint="Item Name"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/wish_price"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/wish_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="$ price"
+            app:layout_constraintStart_toEndOf="@+id/wish_image"
+            app:layout_constraintTop_toBottomOf="@+id/wish_name" />
+
+        <TextView
+            android:id="@+id/textiew10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/color"
+            app:layout_constraintStart_toStartOf="@+id/wish_price"
+            app:layout_constraintTop_toBottomOf="@+id/wish_price" />
+
+        <Spinner
+            android:id="@+id/color_dr"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="12dp"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            app:layout_constraintStart_toEndOf="@+id/textiew10"
+            app:layout_constraintTop_toTopOf="@+id/textiew10" />
+
+        <TextView
+            android:id="@+id/textiew11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="@string/qty"
+            app:layout_constraintStart_toEndOf="@+id/color_dr"
+            app:layout_constraintTop_toTopOf="@+id/color_dr" />
+
+        <Spinner
+            android:id="@+id/qty_dr"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown"
+            app:layout_constraintStart_toEndOf="@+id/textiew11"
+            app:layout_constraintTop_toTopOf="@+id/textiew11" />
+
+        <Button
+            android:id="@+id/butto"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:background="#5090a4ae"
+            android:text="@string/remove"
+            app:layout_constraintStart_toEndOf="@+id/wish_image"
+            app:layout_constraintTop_toBottomOf="@+id/color_dr" />
+
+        <Button
+            android:id="@+id/buttod"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:background="#5090a4ae"
+            android:text="@string/move_to_bag"
+            app:layout_constraintBottom_toBottomOf="@+id/butto"
+            app:layout_constraintStart_toEndOf="@+id/butto"
+            app:layout_constraintTop_toTopOf="@+id/butto"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</android.support.v7.widget.CardView>
